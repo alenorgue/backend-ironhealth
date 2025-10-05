@@ -45,4 +45,7 @@ app.get('/api/ping', (req, res) => {
   res.json({ message: 'pong' });
 });
 
+export default app;
+
+// Exportar el manejador para AWS Lambda
 export const handler = serverlessExpress({ app });
