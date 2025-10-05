@@ -36,10 +36,10 @@ jobs:
         env:
           NODE_ENV: test
 
-  deploy-dev:
+  deploy-test:  
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/AWS-Deploy' && github.event_name == 'push'
 
     steps:
       - name: Checkout code
@@ -64,7 +64,7 @@ jobs:
       - name: Install Serverless Framework
         run: npm install -g serverless
 
-      - name: Deploy to Development
+      - name: Deploy to AWS (Test)
         run: npm run serverless:deploy
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI_DEV }}
