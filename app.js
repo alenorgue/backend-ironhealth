@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-
+import serverlessExpress from '@vendia/serverless-express';
 import patientRoutes from './api/routes/patients.route.js';
 import professionalRoutes from './api/routes/professionals.route.js';
 import appointmentsRoutes from './api/routes/appointments.route.js';
@@ -10,7 +10,6 @@ import userRoutes from './api/routes/users.route.js';
 import emailRoutes from './api/routes/email.route.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Middleware para CORS (permite todas las solicitudes)
 app.use(cors());
@@ -46,10 +45,4 @@ app.get('/api/ping', (req, res) => {
   res.json({ message: 'pong' });
 });
 
-if (process.env.NODE_ENV !== 'test') {
-  app.listen(PORT, () => {
-    console.log(`Servidor escuchando en puerto ${PORT}`);
-  });
-}
-
-export default app;
+export const handler = serverlessExpress({ app });

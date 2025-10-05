@@ -13,9 +13,16 @@
     "prepare": "husky",
     "test": "cross-env NODE_ENV=test NODE_OPTIONS=--no-warnings node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "seed": "node --env-file=.env api/seeds/adminSeed.js",
-    "update-seed": "node --env-file=.env api/seeds/updateAdminSeed.js"
+    "update-seed": "node --env-file=.env api/seeds/updateAdminSeed.js",
+    "serverless:offline": "serverless offline",
+    "serverless:deploy": "serverless deploy",
+    "serverless:deploy:prod": "serverless deploy --stage prod",
+    "serverless:remove": "serverless remove",
+    "serverless:logs": "serverless logs -f app -t",
+    "serverless:info": "serverless info"
   },
   "dependencies": {
+    "@vendia/serverless-express": "^4.12.6",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.7.0",
     "cors": "^2.8.5",
@@ -41,6 +48,7 @@
     "lint-staged": "^15.2.0",
     "mongodb-memory-server": "^10.2.1",
     "prettier": "^3.2.4",
+    "serverless-offline": "^14.4.0",
     "supertest": "^7.1.4"
   },
   "lint-staged": {
