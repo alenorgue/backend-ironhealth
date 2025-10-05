@@ -7,6 +7,9 @@ provider:
   region: ${opt:region, 'us-east-1'}
   memorySize: 512
   timeout: 30
+  # Para API Gateway HTTP (v2)
+  httpApi:
+    id: 5d4ocv7glg
   environment:
     NODE_ENV: ${self:provider.stage}
     MONGODB_URI: ${env:MONGODB_URI}
@@ -28,16 +31,15 @@ provider:
 
 functions:
   app:
+    name: IronHealth-backend
     handler: app.handler
     events:
-      - http:
+      - httpApi:
           path: /{proxy+}
-          method: ANY
-          cors: true
-      - http:
+          method: '*'
+      - httpApi:
           path: /
-          method: ANY
-          cors: true
+          method: '*'
 
 plugins:
   - serverless-offline
