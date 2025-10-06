@@ -1,5 +1,5 @@
 service: backend-ironhealth
-frameworkVersion: '2.72.3' # <-- Cambio aquí: usar 2.72.3
+frameworkVersion: '4.20.2'  # <-- Volver a v4
 
 provider:
   name: aws
