@@ -10,13 +10,33 @@ import emailRoutes from './api/routes/email.route.js';
 
 const app = express();
 
-// Middleware para CORS (permite todas las solicitudes)
-app.use(cors());
+// Configurar CORS específicamente para tu dominio
+const corsOptions = {
+  origin: [
+    'https://ironhealth.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:5173', // Para desarrollo local
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: [
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'Authorization',
+    'Cache-Control',
+    'X-HTTP-Method-Override',
+  ],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Debug middleware
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);
+  console.log('Origin:', req.headers.origin);
   next();
 });
 
