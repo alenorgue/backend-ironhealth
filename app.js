@@ -1,13 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import serverlessExpress from '@vendia/serverless-express';
 import patientRoutes from './api/routes/patients.route.js';
 import professionalRoutes from './api/routes/professionals.route.js';
 import appointmentsRoutes from './api/routes/appointments.route.js';
 import authRoutes from './api/routes/auth.route.js';
 import userRoutes from './api/routes/users.route.js';
 import emailRoutes from './api/routes/email.route.js';
+import serverless from 'serverless-http';
 
 const app = express();
 
@@ -48,4 +48,4 @@ app.get('/api/ping', (req, res) => {
 export default app;
 
 // Exportar el manejador para AWS Lambda
-export const handler = serverlessExpress({ app });
+export const handler = serverless(app);
