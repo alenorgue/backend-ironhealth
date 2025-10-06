@@ -75,10 +75,7 @@ jobs:
         run: npm ci
 
       - name: Install Serverless Framework
-        run: npm install -g serverless@2.72.0
-
-      - name: Verify AWS Connection
-        run: aws sts get-caller-identity
+        run: npm install -g serverless@2.72.3
 
       - name: Deploy to AWS
         run: npm run serverless:deploy
