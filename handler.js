@@ -1,8 +1,9 @@
 import serverless from 'serverless-http';
 import app from './app.js';
 
-// Configurar serverless-http con opciones específicas
+// Configurar serverless-http para manejar el prefijo /default
 export const handler = serverless(app, {
+  basePath: '/default', // <-- Agregar esto
   request(request, event, _context) {
     console.log('Lambda event:', JSON.stringify(event, null, 2));
     console.log('Request path:', request.path);
