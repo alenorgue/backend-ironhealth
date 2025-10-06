@@ -8,12 +8,13 @@ provider:
   region: ${opt:region, 'eu-west-3'}
   memorySize: 512
   timeout: 30
-  logs:
-    httpApi: false  # <-- Deshabilitar logs automáticos
   deploymentBucket:
     name: serverless-deployments-eu-west-3-ironhealth
   httpApi:
     id: 5d4ocv7glg
+  logs:
+    httpApi: false
+    frameworkLambda: false  # <-- Agregar esto también
   environment:
     NODE_ENV: ${self:provider.stage}
     MONGODB_URI: ${env:MONGODB_URI}
@@ -34,7 +35,7 @@ provider:
 
 functions:
   app:
-    name: IronHealth-backend-dev  # <-- Nombre fijo con stage
+    name: IronHealth-backend-dev
     handler: app.handler
     events:
       - httpApi:
