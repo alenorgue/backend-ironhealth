@@ -41,7 +41,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/AWS-Deploy' && github.event_name == 'push'
     
-    # Configurar todas las variables de entorno a nivel del job
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -75,25 +74,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Debug AWS Credentials
-        run: |
-          echo "AWS_ACCESS_KEY_ID length: ${#AWS_ACCESS_KEY_ID}"
-          echo "AWS_SECRET_ACCESS_KEY length: ${#AWS_SECRET_ACCESS_KEY}"
-          echo "First 4 chars of Access Key: ${AWS_ACCESS_KEY_ID:0:4}"
+      - name: Install Serverless Framework
+        run: npm install -g serverless@2.72.0
 
       - name: Verify AWS Connection
-        run: |
-          aws sts get-caller-identity
-          aws lambda list-functions --max-items 1
+        run: aws sts get-caller-identity
 
-      - name: Check available Serverless versions
-        run: npm view serverless versions --json
-
-      - name: Install Serverless Framework v2 (latest stable)
-        run: npm install -g serverless@2.72.3
-
-      - name: Verify Serverless version
-        run: serverless --version
-
-      - name: Deploy to AWS (Test)
+      - name: Deploy to AWS
         run: npm run serverless:deploy
