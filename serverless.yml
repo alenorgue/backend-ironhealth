@@ -36,9 +36,14 @@ provider:
 functions:
   app:
     name: IronHealth-backend-dev
-    handler: app.handler
+    handler: handler.handler  # <-- Cambiar a handler.js
     events:
-      - httpApi: '*'  # <-- Simplificar a catch-all para manejar todas las rutas
+      - httpApi:
+          path: /{proxy+}
+          method: '*'
+      - httpApi:
+          path: /
+          method: '*'
 
 plugins:
   - serverless-offline

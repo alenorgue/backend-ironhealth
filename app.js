@@ -7,7 +7,6 @@ import appointmentsRoutes from './api/routes/appointments.route.js';
 import authRoutes from './api/routes/auth.route.js';
 import userRoutes from './api/routes/users.route.js';
 import emailRoutes from './api/routes/email.route.js';
-import serverless from 'serverless-http';
 
 const app = express();
 
@@ -15,18 +14,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Usar la arquitectura MVC que hemos visto en clase. No va a hacer vistas como tal (no hay EJS), pero el JSON que devuelven los endpoints se puede llegar a considerar una especie de vista en este modelo.
+// Debug middleware
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
 
+// Usar la arquitectura MVC
 app.use('/api', patientRoutes);
-
 app.use('/api', professionalRoutes);
-
 app.use('/api', appointmentsRoutes);
-
 app.use('/api', authRoutes);
-
 app.use('/api', userRoutes);
-
 app.use('/api', emailRoutes);
 
 // Conexión a MongoDB Atlas usando variables de entorno
@@ -40,17 +39,15 @@ if (process.env.NODE_ENV !== 'test') {
     .catch(err => console.error('Error de conexión a MongoDB:', err));
 }
 
-// Endpoint de ejemplo
+// Endpoints de test
 app.get('/api/ping', (req, res) => {
   res.json({ message: 'pong' });
 });
 
-// Agregar este endpoint temporal para debug
 app.get('/ping', (req, res) => {
   res.json({ message: 'direct ping works', env: process.env.NODE_ENV });
 });
 
-// Debug endpoint para ver todas las rutas
 app.get('/debug/routes', (req, res) => {
   const routes = [];
   app._router.stack.forEach(middleware => {
@@ -65,6 +62,4 @@ app.get('/debug/routes', (req, res) => {
 });
 
 export default app;
-
-// Exportar el manejador para AWS Lambda
-export const handler = serverless(app);
+// Remover el handler de aquí - ahora está en handler.js
