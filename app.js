@@ -45,6 +45,25 @@ app.get('/api/ping', (req, res) => {
   res.json({ message: 'pong' });
 });
 
+// Agregar este endpoint temporal para debug
+app.get('/ping', (req, res) => {
+  res.json({ message: 'direct ping works', env: process.env.NODE_ENV });
+});
+
+// Debug endpoint para ver todas las rutas
+app.get('/debug/routes', (req, res) => {
+  const routes = [];
+  app._router.stack.forEach(middleware => {
+    if (middleware.route) {
+      routes.push({
+        path: middleware.route.path,
+        methods: Object.keys(middleware.route.methods),
+      });
+    }
+  });
+  res.json({ routes, env: process.env.NODE_ENV });
+});
+
 export default app;
 
 // Exportar el manejador para AWS Lambda
