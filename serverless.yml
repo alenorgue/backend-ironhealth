@@ -1,6 +1,7 @@
 service: backend-ironhealth
 frameworkVersion: '4.20.2'  # <-- Volver a v4
 
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -68,3 +69,6 @@ package:
     - .prettierrc
     - jest.config.js
     - tests/**
+
+deploymentBucket:
+    name: serverless-deployments-eu-west-3-ironhealth
