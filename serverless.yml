@@ -1,4 +1,5 @@
 service: backend-ironhealth
+frameworkVersion: '3'
 
 provider:
   name: aws
