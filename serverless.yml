@@ -7,7 +7,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'eu-west-3'}
   memorySize: 512
-  timeout: 60
+  timeout: 30
   logs:
     httpApi: false  # <-- Deshabilitar logs automáticos
   deploymentBucket:
