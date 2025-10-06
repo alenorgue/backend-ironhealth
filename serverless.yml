@@ -7,7 +7,9 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'eu-west-3'}
   memorySize: 512
-  timeout: 30
+  timeout: 60
+  logs:
+    httpApi: false  # <-- Deshabilitar logs automáticos
   deploymentBucket:
     name: serverless-deployments-eu-west-3-ironhealth
   httpApi:
@@ -29,20 +31,10 @@ provider:
     EMAIL_MAX_TOTAL_SIZE_MB: ${env:EMAIL_MAX_TOTAL_SIZE_MB}
     PORTAL_URL: ${env:PORTAL_URL}
     EMAIL_LOGO_URL: ${env:EMAIL_LOGO_URL}
-  
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action:
-            - logs:CreateLogGroup
-            - logs:CreateLogStream
-            - logs:PutLogEvents
-          Resource: "*"
 
 functions:
   app:
-    name: IronHealth-backend-${self:provider.stage}  # <-- Agregar stage al nombre
+    name: IronHealth-backend-dev  # <-- Nombre fijo con stage
     handler: app.handler
     events:
       - httpApi:
