@@ -87,7 +87,7 @@ jobs:
           aws lambda list-functions --max-items 1
 
       - name: Install Serverless Framework
-        run: npm install -g serverless@3
+        run: npm install -g serverless@3.38.0
 
       - name: Deploy to AWS (Test)
         run: npm run serverless:deploy

@@ -1,11 +1,11 @@
 service: backend-ironhealth
-frameworkVersion: '3'
+frameworkVersion: '3.38.0'
 
 provider:
   name: aws
   runtime: nodejs18.x
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'us-east-1'}
+  region: ${opt:region, 'eu-west-3'}
   memorySize: 512
   timeout: 30
   httpApi:
@@ -17,7 +17,16 @@ provider:
     CLOUDINARY_CLOUD_NAME: ${env:CLOUDINARY_CLOUD_NAME}
     CLOUDINARY_API_KEY: ${env:CLOUDINARY_API_KEY}
     CLOUDINARY_API_SECRET: ${env:CLOUDINARY_API_SECRET}
+    CLOUDINARY_UPLOAD_PRESET: ${env:CLOUDINARY_UPLOAD_PRESET}
+    JWT_EXPIRES_IN: ${env:JWT_EXPIRES_IN}
     RESEND_API_KEY: ${env:RESEND_API_KEY}
+    EMAIL_FROM: ${env:EMAIL_FROM}
+    EMAIL_ENABLED: ${env:EMAIL_ENABLED}
+    EMAIL_DISABLE_ALL: ${env:EMAIL_DISABLE_ALL}
+    EMAIL_DEV_WHITELIST: ${env:EMAIL_DEV_WHITELIST}
+    EMAIL_MAX_TOTAL_SIZE_MB: ${env:EMAIL_MAX_TOTAL_SIZE_MB}
+    PORTAL_URL: ${env:PORTAL_URL}
+    EMAIL_LOGO_URL: ${env:EMAIL_LOGO_URL}
   
   iam:
     role:
