@@ -86,8 +86,14 @@ jobs:
           aws sts get-caller-identity
           aws lambda list-functions --max-items 1
 
-      - name: Install Serverless Framework
-        run: npm install -g serverless@3.38.0
+      - name: Check available Serverless versions
+        run: npm view serverless versions --json
+
+      - name: Install Serverless Framework v3 (latest)
+        run: npm install -g serverless@^3.0.0
+
+      - name: Verify Serverless version
+        run: serverless --version
 
       - name: Deploy to AWS (Test)
         run: npm run serverless:deploy
