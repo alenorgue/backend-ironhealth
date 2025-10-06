@@ -1,6 +1,5 @@
 service: backend-ironhealth
-frameworkVersion: '4.20.2'  # <-- Volver a v4
-
+frameworkVersion: '4.20.2'
 
 provider:
   name: aws
@@ -9,6 +8,8 @@ provider:
   region: ${opt:region, 'eu-west-3'}
   memorySize: 512
   timeout: 30
+  deploymentBucket:
+    name: serverless-deployments-eu-west-3-ironhealth
   httpApi:
     id: 5d4ocv7glg
   environment:
@@ -69,6 +70,3 @@ package:
     - .prettierrc
     - jest.config.js
     - tests/**
-
-deploymentBucket:
-    name: serverless-deployments-eu-west-3-ironhealth

@@ -81,10 +81,18 @@ jobs:
       - name: Verify AWS Connection
         run: aws sts get-caller-identity
 
-      - name: Create S3 bucket for deployments (if not exists)
+      - name: Create S3 bucket and SSM parameter
         run: |
+          # Crear bucket S3
           aws s3 mb s3://serverless-deployments-eu-west-3-ironhealth --region eu-west-3 || echo "Bucket already exists"
-          aws ssm put-parameter --name "/serverless-framework/deployment/s3-bucket" --value "serverless-deployments-eu-west-3-ironhealth" --type "String" --overwrite --region eu-west-3 || echo "Parameter exists"
+          
+          # Crear parámetro SSM (si falla, continuar)
+          aws ssm put-parameter \
+            --name "/serverless-framework/deployment/s3-bucket" \
+            --value "serverless-deployments-eu-west-3-ironhealth" \
+            --type "String" \
+            --overwrite \
+            --region eu-west-3 || echo "SSM parameter creation failed, continuing..."
 
       - name: Deploy to AWS
         run: npm run serverless:deploy
