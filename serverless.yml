@@ -42,7 +42,7 @@ provider:
 
 functions:
   app:
-    name: IronHealth-backend
+    name: IronHealth-backend-${self:provider.stage}  # <-- Agregar stage al nombre
     handler: app.handler
     events:
       - httpApi:

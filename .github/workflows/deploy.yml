@@ -81,10 +81,13 @@ jobs:
       - name: Verify AWS Connection
         run: aws sts get-caller-identity
 
-      - name: Create S3 bucket and SSM parameter
+      - name: Clean existing resources if needed
         run: |
           # Crear bucket S3
           aws s3 mb s3://serverless-deployments-eu-west-3-ironhealth --region eu-west-3 || echo "Bucket already exists"
+          
+          # Eliminar LogGroup existente si causa conflictos
+          aws logs delete-log-group --log-group-name "/aws/lambda/IronHealth-backend" --region eu-west-3 || echo "LogGroup doesn't exist or already cleaned"
           
           # Crear parámetro SSM (si falla, continuar)
           aws ssm put-parameter \
