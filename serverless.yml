@@ -14,7 +14,7 @@ provider:
     id: 5d4ocv7glg
   logs:
     httpApi: false
-    frameworkLambda: false  # <-- Agregar esto también
+    frameworkLambda: false
   environment:
     NODE_ENV: ${self:provider.stage}
     MONGODB_URI: ${env:MONGODB_URI}
@@ -38,12 +38,7 @@ functions:
     name: IronHealth-backend-dev
     handler: app.handler
     events:
-      - httpApi:
-          path: /{proxy+}
-          method: '*'
-      - httpApi:
-          path: /
-          method: '*'
+      - httpApi: '*'  # <-- Simplificar a catch-all para manejar todas las rutas
 
 plugins:
   - serverless-offline
